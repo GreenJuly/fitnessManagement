@@ -1,4 +1,4 @@
-package dto;
+package GreenJuly.fitnessManagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

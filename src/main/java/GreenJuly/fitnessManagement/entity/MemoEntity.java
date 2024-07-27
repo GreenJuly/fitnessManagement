@@ -1,4 +1,4 @@
-package entity;
+package GreenJuly.fitnessManagement.entity;
 
 import jakarta.persistence.*;
 
