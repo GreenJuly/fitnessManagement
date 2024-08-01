@@ -1,17 +1,23 @@
 package GreenJuly.fitnessManagement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 @Entity
 @Table(name = "sales")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SalesEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sales_id", nullable = false)
     private int sales_id;
 
