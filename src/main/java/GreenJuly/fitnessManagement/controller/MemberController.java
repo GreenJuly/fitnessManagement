@@ -39,4 +39,29 @@ public class MemberController {
         }
     }
 
+    /*
+    @Transactional
+    @PutMapping("/{id}")
+    public ResponseEntity updateMember(@PathVariable int id, @RequestBody MemberEntity member) {
+        try {
+            return MemberService.updateMember(id);
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+     */
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteMember(@PathVariable int id) {
+        try {
+            memberService.deleteMember(id);
+            return ResponseEntity.ok().build();
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+
+    }
 }

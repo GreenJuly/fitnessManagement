@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
 @Entity
 @Table(name = "member")
 @Data
@@ -56,4 +55,15 @@ public class MemberEntity {
     private String personal_memo;
 
     // Getters and Setters
+
+    @Builder
+    public void update(int member_id, String name, Date birth, Boolean gender, String membership, Boolean laundry, Boolean payment) {
+        this.member_id = member_id;
+        this.name = name;
+        this.birth = birth;
+        this.gender = gender;
+        this.membership = membership;
+        this.laundry = laundry;
+        this.payment = payment;
+    }
 }
