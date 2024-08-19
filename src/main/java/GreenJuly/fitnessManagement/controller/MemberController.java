@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping("/member")
@@ -16,9 +18,11 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    //회원등록
     @PostMapping("")
     public ResponseEntity signUpMember(@RequestBody MemberEntity member) {
         try {
+            log.info("MemberController.signUpMember: member={}", member);
             memberService.addMember(member);
             return ResponseEntity.ok(member);
         } catch (Exception e) {
@@ -28,36 +32,65 @@ public class MemberController {
 
     }
 
+    //회원조회 -전체
     @GetMapping("")
     public ResponseEntity searchMember(@RequestBody MemberEntity member) {
         try {
-            MemberEntity searchResult = memberService.searchMember(member);
-            return ResponseEntity.ok().body(searchResult);
+            List<MemberEntity> searchAllMembers = memberService.getAllMembers(member);
+            return ResponseEntity.ok().body(searchAllMembers);
         } catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    /*
-    @Transactional
+    //회원조회 -이름
+    @GetMapping("/name")
+    public ResponseEntity searchMemberName(@RequestParam String name) {
+        try {
+            List<MemberEntity> members = memberService.searchMemberName(name);
+            return ResponseEntity.ok().body(members);
+        } catch(Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    //회원조회 -사물함
+    @GetMapping("/locker")
+    public ResponseEntity searchMemberLocker(@RequestParam int lockerId) {
+        try {
+            MemberEntity member = memberService.searchLockerId(lockerId);
+            return ResponseEntity.ok().body(member);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    //회원조회 -기간 -만료
+
+    //회웑조회 -기간 -날짜
+
+    //회원정보수정
     @PutMapping("/{id}")
     public ResponseEntity updateMember(@PathVariable int id, @RequestBody MemberEntity member) {
         try {
-            return MemberService.updateMember(id);
+            log.info(member.toString());
+            MemberEntity updatedMember = memberService.updateMember(id, member);
+            return ResponseEntity.ok().body(updatedMember);
         } catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-     */
-
+//    //회원삭제
     @DeleteMapping("/{id}")
     public ResponseEntity deleteMember(@PathVariable int id) {
         try {
             memberService.deleteMember(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Member deleted successfully");
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

@@ -18,8 +18,13 @@ public class MemberEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "member_id", nullable = false)
-    private Integer member_id;
+    @Column(name = "member_Id", nullable = false)
+    private Integer memberId;
+
+    // 주 테이블에 1:1 양방향
+    @OneToOne
+    @JoinColumn(name = "locker_id", nullable = true)
+    private LockerEntity lockerId;
 
     @Column(name = "name", nullable = false, length = 10)
     private String name;
@@ -55,15 +60,4 @@ public class MemberEntity {
     private String personal_memo;
 
     // Getters and Setters
-
-    @Builder
-    public void update(int member_id, String name, Date birth, Boolean gender, String membership, Boolean laundry, Boolean payment) {
-        this.member_id = member_id;
-        this.name = name;
-        this.birth = birth;
-        this.gender = gender;
-        this.membership = membership;
-        this.laundry = laundry;
-        this.payment = payment;
-    }
 }
