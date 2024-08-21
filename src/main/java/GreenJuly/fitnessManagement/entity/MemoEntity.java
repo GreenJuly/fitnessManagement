@@ -1,14 +1,23 @@
 package GreenJuly.fitnessManagement.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "memo")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemoEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "memo_id")
     private int memoId;
 

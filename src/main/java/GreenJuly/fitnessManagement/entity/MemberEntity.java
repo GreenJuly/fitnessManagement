@@ -1,15 +1,30 @@
 package GreenJuly.fitnessManagement.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Entity
 @Table(name = "member")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberEntity {
 
     @Id
-    @Column(name = "member_id", nullable = false)
-    private Integer member_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "member_Id", nullable = false)
+    private Integer memberId;
+
+    // 주 테이블에 1:1 양방향
+    @OneToOne
+    @JoinColumn(name = "locker_id", nullable = true)
+    private LockerEntity lockerId;
 
     @Column(name = "name", nullable = false, length = 10)
     private String name;
