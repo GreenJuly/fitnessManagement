@@ -42,7 +42,7 @@ public class MemberService {
     }
 
     //회원조회 -기간 -만료
-    public MemberEntity searchEndDate(LocalDate endDate) {
+    public List<MemberEntity> searchEndDate(LocalDate endDate) {
         return memberRepository.findByEndDate(endDate);
     }
 

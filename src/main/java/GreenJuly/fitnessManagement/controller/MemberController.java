@@ -74,7 +74,7 @@ public class MemberController {
     @GetMapping("/endDate")
     public ResponseEntity searchMemberEndDate(@RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
         try {
-            MemberEntity member = memberService.searchEndDate(endDate);
+            List<MemberEntity> member = memberService.searchEndDate(endDate);
             return ResponseEntity.ok().body(member);
         } catch (Exception e){
             log.error(e.getMessage());
