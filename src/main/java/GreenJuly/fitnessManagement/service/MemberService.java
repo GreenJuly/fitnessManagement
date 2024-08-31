@@ -47,6 +47,9 @@ public class MemberService {
     }
 
     //회원조회 -기간 -날짜
+    public List<MemberEntity> searchDate(LocalDate startDate, LocalDate endDate) {
+        return memberRepository.findAllByEndDateBetween(startDate, endDate);
+    }
 
     //회원정보수정
     @Transactional

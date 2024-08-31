@@ -15,5 +15,6 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Integer> {
     MemberEntity findByLockerId(LockerEntity locker);
     MemberEntity findByEndDate(LocalDate endDate);
 
+    List<MemberEntity> findAllByEndDateBetween(LocalDate startDate, LocalDate endDate);
     List<MemberEntity> findAllByName(String name);
 }

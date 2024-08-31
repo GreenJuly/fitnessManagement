@@ -4,10 +4,12 @@ import GreenJuly.fitnessManagement.entity.MemberEntity;
 import GreenJuly.fitnessManagement.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -69,8 +71,29 @@ public class MemberController {
     }
 
     //회원조회 -기간 -만료
+    @GetMapping("/endDate")
+    public ResponseEntity searchMemberEndDate(@RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+        try {
+            MemberEntity member = memberService.searchEndDate(endDate);
+            return ResponseEntity.ok().body(member);
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
-    //회웑조회 -기간 -날짜
+    //회원조회 -기간 -날짜
+    @GetMapping("/date")
+    public ResponseEntity searchMemberDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                           @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+        try {
+            List<MemberEntity> members = memberService.searchDate(startDate, endDate);
+            return ResponseEntity.ok().body(members);
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
     //회원정보수정
     @PutMapping("/{id}")
