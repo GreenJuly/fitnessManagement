@@ -48,6 +48,9 @@ public class MemberEntity {
     @Column(name = "payment")
     private Boolean payment;
 
+    @Column(name = "price")
+    private Integer price;
+
     @Column(name = "start_date")
     private LocalDate startDate;
 

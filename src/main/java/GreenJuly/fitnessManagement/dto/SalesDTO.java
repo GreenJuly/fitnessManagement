@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -13,10 +13,12 @@ import java.sql.Date;
 @AllArgsConstructor
 public class SalesDTO {
 
-    private int sales_id;
-    private int member_id;
+    private int salesId;
+    private int memberId;
+    private String name;
+    private int lockerNum;
     private String membership;
     private Boolean payment;
     private int price;
-    private Date payment_date;
+    private LocalDate payment_date;
 }

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "sales")
@@ -18,11 +18,19 @@ public class SalesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "sales_id", nullable = false)
-    private int sales_id;
+    @Column(name = "salesId", nullable = false)
+    private int salesId;
 
-    @Column(name = "member_id")
-    private int member_id;
+    @Column(name = "memberId")
+    private Integer memberId;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToOne
+    @JoinColumn(name = "lockerNum", nullable = true)
+//    @Column(name = "lockerNum")
+    private LockerEntity lockerNum;
 
     @Column(name = "membership")
     private String membership;
@@ -34,5 +42,5 @@ public class SalesEntity {
     private Integer price;
 
     @Column(name = "payment_date")
-    private Date payment_date;
+    private LocalDate paymentDate;
 }

@@ -2,6 +2,7 @@ package GreenJuly.fitnessManagement.controller;
 
 import GreenJuly.fitnessManagement.entity.MemberEntity;
 import GreenJuly.fitnessManagement.service.MemberService;
+import GreenJuly.fitnessManagement.service.SalesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,12 +21,19 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private SalesService salesService;
+
     //회원등록
     @PostMapping("")
     public ResponseEntity signUpMember(@RequestBody MemberEntity member) {
         try {
             log.info("MemberController.signUpMember: member={}", member);
             memberService.addMember(member);
+            // 매출 등록
+            if (member.getPrice() != null){
+                salesService.addSales(member);
+            }
             return ResponseEntity.ok(member);
         } catch (Exception e) {
             log.error(e.getMessage());
